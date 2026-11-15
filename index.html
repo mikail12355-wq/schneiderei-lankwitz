@@ -164,7 +164,7 @@ footer.panel{background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 
   .readout{right:-16%;top:32%}
   .ok{left:-6%;top:32%}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
 </style>
 </head>
 <body>
@@ -458,9 +458,9 @@ footer.panel{background:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 
 #pattern .grain{stroke:var(--ink);stroke-width:1.2;marker-end:url(#arr)}
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/lenis.min.js"></script>
 <script>
 (async () => {
 const NS = 'http://www.w3.org/2000/svg';
@@ -500,7 +500,7 @@ const tape = $('#tape'); const STEP = 70;
 for (let i = 0; i <= 50; i++) { const s = document.createElement('span'); s.textContent = i; s.style.left = (i * STEP + 0) + 'px'; if (i % 10 === 0) s.className = 'r'; tape.appendChild(s); }
 tape.style.width = (51 * STEP) + 'px';
 
-if (!window.gsap || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+if (!window.gsap) {
   pieces.forEach(p => { p.outline.setAttribute('fill', '#2b3a5e'); }); $('#details').setAttribute('opacity', 1); pat.setAttribute('viewBox', '30 30 340 440');
   hp.style.strokeDashoffset = 0; $('#yrs').textContent = 40; $('#embFill').setAttribute('opacity', 1); return;
 }
