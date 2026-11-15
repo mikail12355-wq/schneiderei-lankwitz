@@ -505,6 +505,8 @@ if (!window.gsap) {
   hp.style.strokeDashoffset = 0; $('#yrs').textContent = 40; $('#embFill').setAttribute('opacity', 1); return;
 }
 gsap.registerPlugin(ScrollTrigger);
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+scrollTo(0, 0);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 /* ---------- smooth scroll ---------- */
@@ -527,7 +529,7 @@ const pinTl = (el, len) => gsap.timeline({ defaults: { ease: 'none' }, scrollTri
 /* =========== 1 HERO =========== */
 pieces.forEach(p => gsap.set(p.g, { x: p.x, y: p.y, rotation: p.r, svgOrigin: `${p.cx} ${p.cy}` }));
 gsap.from(['#h0', '#h1 span', '#h1 em', '#heroP'], { y: 40, autoAlpha: 0, duration: 1.1, stagger: .1, ease: 'expo.out', delay: .15 });
-gsap.from(pieces.map(p => p.g), { autoAlpha: 0, y: '+=40', duration: 1, stagger: .08, ease: 'expo.out', delay: .35 });
+gsap.from(pieces.map(p => p.outline.parentNode.querySelectorAll('.outline, .lbl, .grain')), { opacity: 0, duration: .9, stagger: .08, ease: 'power2.out', delay: .35 });
 gsap.from('#hint', { autoAlpha: 0, y: 20, delay: 1.2, duration: .8 });
 gsap.from('.top > *, .ruler, .ruler-mark', { autoAlpha: 0, duration: .8, delay: .6, stagger: .1 });
 
@@ -544,8 +546,7 @@ pieces.forEach((p, i) => {
       p.ba.setAttribute('transform', `rotate(${-s})`); p.bbl.setAttribute('transform', `rotate(${s})`);
       p.cut.style.strokeDashoffset = p.len - L;
    } }, t0)
-   .to(p.sc, { opacity: 0, duration: .05 }, t0 + .85)
-   .to(p.g, { y: '-=6', duration: .15, yoyo: true, repeat: 1 }, t0 + .85);
+   .to(p.sc, { opacity: 0, duration: .05 }, t0 + .85);
 });
 H.to(pieces.map(p => p.outline), { attr: { fill: '#2b3a5e' }, duration: .7 }, 4.7)
  .to('#pattern .lbl, #pattern .grain', { opacity: 0, duration: .4 }, 4.7)
